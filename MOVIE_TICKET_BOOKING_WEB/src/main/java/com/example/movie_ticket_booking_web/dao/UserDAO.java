@@ -9,6 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
+//    public User getAll() {
+//        String sql = "SELECT * FROM uses";
+//        try (Connection conn = DBConnection.getConnection();
+//             PreparedStatement ps
+//
+//    }
     public User findByUsernameOrEmail(String userOrEmail) {
         String sql = "SELECT * FROM users WHERE username = ? OR email = ?";
         try (Connection conn = DBConnection.getConnection();
