@@ -12,8 +12,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="icon" href="<c:url value='/img/logo/logo.ico'/>" type="image/x-icon">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lemon&family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@200;300;400;500;600;700&display=swap"
+            rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-    <!-- nếu bạn đã có css/film.css thì để đúng path này -->
+
     <link rel="stylesheet" href="<c:url value='/css/film.css'/>">
 
     <title>Phim</title>
@@ -31,8 +35,8 @@
             </div>
             <div class="nav-items">
                 <ul class="list">
-                    <li><a href="/home">Trang Chủ</a></li>
-                    <li><a href="/films">Phim</a>
+                    <li><a href="<c:url value='/home'/>">Trang Chủ</a></li>
+                    <li><a href="<c:url value='/films'/>">Phim</a>
                     </li>
                     <li><a href="/uudai">Ưu Đãi</a></li>
                     <li><a href="/contact">Liên Hệ</a></li>
@@ -57,7 +61,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="../html/login.html"><i class="fa-solid fa-user" id="user_icon"></i></a>
+                        <a href=""><i class="fa-solid fa-user" id="user_icon"></i></a>
                     </li>
                 </ul>
             </div>
@@ -108,7 +112,7 @@
                         <c:url var="posterUrl" value="/${m.poster}" />
                     </c:when>
                     <c:otherwise>
-                        <c:url var="posterUrl" value="/img/default-poster.jpg" />
+                        <c:url var="posterUrl" value="/img/default-poster.png" />
                     </c:otherwise>
                 </c:choose>
 
@@ -177,7 +181,7 @@
                         <c:url var="posterUrl" value="/${m.poster}" />
                     </c:when>
                     <c:otherwise>
-                        <c:url var="posterUrl" value="/img/default-poster.jpg" />
+                        <c:url var="posterUrl" value="/img/default-poster.png" />
                     </c:otherwise>
                 </c:choose>
 
@@ -267,5 +271,7 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<c:url value='/js/film.js'/>"></script>
+<script src="<c:url value='/dungchung/nav.js'/>"></script>
+
 </body>
 </html>

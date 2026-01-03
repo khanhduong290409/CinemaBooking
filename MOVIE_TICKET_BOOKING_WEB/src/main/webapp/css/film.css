@@ -106,6 +106,7 @@ body{
 .navBar ul li a{
     color: #fff;
     font-size: 1.15rem;
+    white-space: nowrap;
     font-weight: 600;
     transition: color 0.25s ease-in-out;
     -webkit-transition: color 0.25s ease-in-out;

@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
             session.setAttribute("currentUser", userOrEmail);
 
             // chuyển đến home (ví dụ home.jsp)
-            response.sendRedirect(request.getContextPath() + "/home.jsp");
+            response.sendRedirect(request.getContextPath() + "/home");
         } else {
             // báo lỗi lại cho login.jsp
             request.setAttribute("loginError", "Sai tài khoản hoặc mật khẩu!");

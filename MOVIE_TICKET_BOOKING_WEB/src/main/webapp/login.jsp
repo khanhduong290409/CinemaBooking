@@ -33,9 +33,9 @@
             </div>
             <div class="nav-items">
                 <ul class="list">
-                    <li><a href="../html/home.html">Trang Chủ</a></li>
+                    <li><a href="<c:url value = '/home'/>">Trang Chủ</a></li>
                     <li>
-                        <a href="../html/film.html">Phim</a>
+                        <a href="<c:url value = '/films'/>">Phim</a>
                     </li>
                     <li><a href="../html/uudai.html">Ưu Đãi</a></li>
                     <li><a href="../html/contact.html">Liên Hệ</a></li>
@@ -60,7 +60,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="../html/login.html"><i class="fa-solid fa-user" id="user_icon"></i></a>
+                        <a href="<c:url value = '/login'/>"><i class="fa-solid fa-user" id="user_icon"></i></a>
                     </li>
                 </ul>
             </div>
