@@ -36,10 +36,10 @@
             <div class="nav-items">
                 <ul class="list">
                     <li><a href="<c:url value='/home'/>">Trang Chủ</a></li>
-                    <li><a href="<c:url value='/films'/>">Phim</a></li>
-                    <li><a href="#">Ưu Đãi</a></li>
-                    <li><a href="#">Liên Hệ</a></li>
-
+                    <li><a href="<c:url value='/films'/>">Phim</a>
+                    </li>
+                    <li><a href="<c:url value ='/uudai'/>">Ưu Đãi</a></li>
+                    <li><a href="<c:url value = '/contact'/>">Liên Hệ</a></li>
                     <div class="close-btn" id="close">
                         <i class="fa-solid fa-xmark"></i>
                     </div>
@@ -48,9 +48,9 @@
                 <ul class="user">
                     <li>
                         <div class="search_user">
-                            <input type="text" placeholder="Search..." id="search_input">
-                            <!-- FIX: ẩn dropdown search ngay từ JSP để không hiện "khối vuông đen" -->
-                            <div class="search" style="display:none;"></div>
+<%--                            <input type="text" placeholder="Search..." id="search_input">--%>
+<%--                            <!-- FIX: ẩn dropdown search ngay từ JSP để không hiện "khối vuông đen" -->--%>
+<%--                            <div class="search" style="display:none;"></div>--%>
                         </div>
                     </li>
                     <li>

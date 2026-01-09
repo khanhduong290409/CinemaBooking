@@ -16,7 +16,9 @@ public class UserDAO {
 //
 //    }
     public User findByUsernameOrEmail(String userOrEmail) {
-        String sql = "SELECT * FROM users WHERE username = ? OR email = ?";
+        String sql = """
+SELECT * FROM users WHERE username = ? OR email = ?
+""";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 

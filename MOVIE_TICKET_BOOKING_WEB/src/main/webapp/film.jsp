@@ -38,8 +38,8 @@
                     <li><a href="<c:url value='/home'/>">Trang Chủ</a></li>
                     <li><a href="<c:url value='/films'/>">Phim</a>
                     </li>
-                    <li><a href="/uudai">Ưu Đãi</a></li>
-                    <li><a href="/contact">Liên Hệ</a></li>
+                    <li><a href="<c:url value ='/uudai'/>">Ưu Đãi</a></li>
+                    <li><a href="<c:url value = '/contact'/>">Liên Hệ</a></li>
                     <div class="close-btn" id="close">
                         <i class="fa-solid fa-xmark"></i>
                     </div>
@@ -47,17 +47,17 @@
                 <ul class="user">
                     <li>
                         <div class="search_user">
-                            <input type="text" placeholder="Search..." id="search_input">
-                            <div class="search">
-                                <!-- <a href="#" class="card1">
-                                    <img src="img/the boys.jpg" alt="">
-                                    <div class="cont">
-                                        <h3 class=titl>The Boys </h3>
-                                        <p>Action, 2021 , <span>IMDB</span><i class="fa-solid fa-star"></i> 9.6</p>
-                                    </div>
-                                </a> -->
+<%--                            <input type="text" placeholder="Search..." id="search_input">--%>
+<%--                            <div class="search">--%>
+<%--                                <!-- <a href="#" class="card1">--%>
+<%--                                    <img src="img/the boys.jpg" alt="">--%>
+<%--                                    <div class="cont">--%>
+<%--                                        <h3 class=titl>The Boys </h3>--%>
+<%--                                        <p>Action, 2021 , <span>IMDB</span><i class="fa-solid fa-star"></i> 9.6</p>--%>
+<%--                                    </div>--%>
+<%--                                </a> -->--%>
 
-                            </div>
+<%--                            </div>--%>
                         </div>
                     </li>
                     <li>

@@ -32,7 +32,9 @@ public class MovieDAO {
         return m;
     }
     public List<Movie> findTopRatedNowShowing(int limit) {
-        String sql = "SELECT * FROM movies WHERE status='NOW_SHOWING' ORDER BY rated DESC, released DESC LIMIT ?";
+        String sql = """
+SELECT * FROM movies WHERE status='NOW_SHOWING' ORDER BY rated DESC, released DESC LIMIT ?
+""";
         List<Movie> list = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
