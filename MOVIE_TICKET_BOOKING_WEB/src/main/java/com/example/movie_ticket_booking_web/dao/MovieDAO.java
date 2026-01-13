@@ -26,9 +26,10 @@ public class MovieDAO {
         m.setCountry(rs.getString("country"));
         m.setPoster(rs.getString("poster"));
         m.setImages(rs.getString("images"));
-        m.setBookingUrl(rs.getString("booking_url"));
         m.setVideoUrl(rs.getString("video_url"));
         m.setStatus(rs.getString("status"));
+        m.setCode(rs.getString("code"));
+
         return m;
     }
     public List<Movie> findTopRatedNowShowing(int limit) {
@@ -103,4 +104,19 @@ SELECT * FROM movies WHERE status='NOW_SHOWING' ORDER BY rated DESC, released DE
     public List<Movie> findUpcoming() {
         return findByStatus("UPCOMING");
     }
+    public Movie findByCode(String code) {
+        String sql = "SELECT * FROM movies WHERE code = ? LIMIT 1";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, code);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return mapRow(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -24,7 +24,8 @@ public class Movie {
     private String country;
     private String poster;     // VD: ../img/poster/xxx.jpg (giữ nguyên DB)
     private String images;     // VD: ../img/bg/xxx.jpg (giữ nguyên DB)
-    private String bookingUrl; // VD: ../html/book.html?Robot hoặc book?code=Robot
     private String videoUrl;   // iframe src
     private String status;     // NOW_SHOWING / UPCOMING
+    private String code;   // ví dụ: TEEYOD, NXCMCT
+
 }

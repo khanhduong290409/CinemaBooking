@@ -43,15 +43,9 @@
     </c:otherwise>
 </c:choose>
 
-<c:choose>
-    <c:when test="${not empty m.bookingUrl}">
-        <c:set var="bookingRel" value="${fn:replace(m.bookingUrl, '../', '')}" />
-        <c:set var="bookingHref" value="${pageContext.request.contextPath}/${bookingRel}" />
-    </c:when>
-    <c:otherwise>
-        <c:set var="bookingHref" value="" />
-    </c:otherwise>
-</c:choose>
+<c:set var="bookingHref"
+       value="${pageContext.request.contextPath}/book?movie=${m.code}" />
+
 
 <!-- ====== HEADER + FEATURE (template giữ nguyên) ====== -->
 <div class="container_header">
@@ -77,8 +71,8 @@
                 <ul class="user">
                     <li>
                         <div class="search_user">
-<%--                            <input type="text" placeholder="Search..." id="search_input">--%>
-<%--                            <div class="search"></div>--%>
+                            <%--                            <input type="text" placeholder="Search..." id="search_input">--%>
+                            <%--                            <div class="search"></div>--%>
                         </div>
                     </li>
                     <li>
@@ -152,14 +146,12 @@
 
                         <div class="row align-items-center">
                             <div class="col-12 col-sm-3 col-lg-3 col-xxl-2">
-                                <c:choose>
-                                    <c:when test="${not empty bookingHref}">
-                                        <a href="${bookingHref}" class="btn btn-danger buy-btn" id="Booking">Mua vé</a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a href="#" class="btn btn-secondary buy-btn disabled" id="Booking" aria-disabled="true">Chưa mở bán</a>
-                                    </c:otherwise>
-                                </c:choose>
+                                <a href="${bookingHref}"
+                                   class="btn btn-danger buy-btn"
+                                   id="Booking">
+                                    Mua vé
+                                </a>
+
                             </div>
                         </div>
 
