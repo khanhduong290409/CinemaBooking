@@ -21,48 +21,8 @@
 </head>
 
 <body>
-<div class="container">
-    <header class="header" id="header">
-        <div class="logo">
-            <h1>movie</h1>
-        </div>
+<%@ include file="/dungchung/nav.jsp" %>
 
-        <nav class="navBar">
-            <div class="open-btn" id="open">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-
-            <div class="nav-items">
-                <ul class="list">
-                    <li><a href="<c:url value='/home'/>">Trang Chủ</a></li>
-                    <li><a href="<c:url value='/films'/>">Phim</a>
-                    </li>
-                    <li><a href="<c:url value ='/uudai'/>">Ưu Đãi</a></li>
-                    <li><a href="<c:url value = '/contact'/>">Liên Hệ</a></li>
-                    <div class="close-btn" id="close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                </ul>
-
-                <ul class="user">
-                    <li>
-                        <div class="search_user">
-<%--                            <input type="text" placeholder="Search..." id="search_input">--%>
-<%--                            <div class="search">--%>
-<%--                                <!-- template FE để trống -->--%>
-<%--                            </div>--%>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="<c:url value='/login.jsp'/>">
-                            <i class="fa-solid fa-user" id="user_icon"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-</div>
 
 <div class="main">
     <h1>KHUYẾN MÃI</h1>
@@ -199,43 +159,8 @@
     </main>
 </div>
 
-<footer class="footer">
-    <div class="footer-advise">
-        <div>
-            <ul>
-                <li><a href="${pageContext.request.contextPath}/contact#gioithieu">Giới Thiệu</a></li>
-                <li><a href="${pageContext.request.contextPath}/contact#lienhe">LIÊN HỆ</a></li>
-                <li><a href="${pageContext.request.contextPath}/contact#chinhsach">CHÍNH SÁCH</a></li>
-                <li><a href="${pageContext.request.contextPath}/contact#huongdan">HƯỚNG DẪN</a></li>
-            </ul>
-        </div>
-        <div class="advise-text">
-            <p><small>Địa chỉ trụ sở: 3 Đ. Cầu Giấy, Ngọc Khánh, Đống Đa, Hà Nội, Việt Nam</small></p>
-            <p><small>Giấy chứng nhận ĐKKD số: 0106633482 - Đăng ký lần đầu ngày 08/09/2014 tại Sở Kế hoạch và Đầu tư Thành phố Hà Nội</small></p>
-        </div>
-    </div>
+<%@ include file="/dungchung/footer.jsp" %>
 
-    <div>
-        <h4>Follow Us</h4>
-        <div class="footer-social">
-            <a href="https://www.instagram.com/sqw_uli"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.facebook.com/Siluq.16"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="https://www.threads.net/@sqw_uli"><i class="fa-brands fa-threads"></i></a>
-        </div>
-    </div>
-
-    <div class="moblie-app">
-        <h4>Movie App</h4>
-        <div class="link-title">
-            <a href="https://play.google.com/store/apps/details?id=com.cgv.android.movieapp" target="_blank">
-                <img src="<c:url value='/img/footer/01.jpg'/>" alt="">
-            </a>
-            <a href="https://apps.apple.com/vn/app/cgv-cinemas/id1067166194" target="_blank">
-                <img src="<c:url value='/img/footer/02.jpg'/>" alt="">
-            </a>
-        </div>
-    </div>
-</footer>
 
 <script src="<c:url value='/dungchung/nav.js'/>"></script>
 <script src="<c:url value='/js/uudai.js'/>"></script>

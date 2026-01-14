@@ -22,61 +22,37 @@
 </head>
 
 <body>
-<div class="container">
-    <header class="header" id="header">
-        <div class="logo">
-            <h1>movie</h1>
-        </div>
+<%@ include file="/dungchung/nav.jsp" %>
 
-        <nav class="navBar">
-            <div class="open-btn" id="open">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-
-            <div class="nav-items">
-                <ul class="list">
-                    <li><a href="<c:url value='/home'/>">Trang Chủ</a></li>
-                    <li><a href="<c:url value='/films'/>">Phim</a>
-                    </li>
-                    <li><a href="<c:url value ='/uudai'/>">Ưu Đãi</a></li>
-                    <li><a href="<c:url value = '/contact'/>">Liên Hệ</a></li>
-                    <div class="close-btn" id="close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                </ul>
-
-                <ul class="user">
-                    <li>
-                        <div class="search_user">
-<%--                            <input type="text" placeholder="Search..." id="search_input">--%>
-<%--                            <!-- FIX: ẩn dropdown search ngay từ JSP để không hiện "khối vuông đen" -->--%>
-<%--                            <div class="search" style="display:none;"></div>--%>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="fa-solid fa-user" id="user_icon"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-</div>
 
 <div class="swiper mySwiper">
     <div class="swiper-wrapper">
 
         <c:forEach items="${heroMovies}" var="m">
             <c:choose>
-                <c:when test="${not empty m.images}">
-                    <c:set var="bgRel" value="${fn:replace(fn:trim(m.images), '../', '')}" />
+                <c:when test="${empty m.images}">
+                    <c:set var="bgSrc" value="" />
+                </c:when>
+
+                <c:when test="${fn:startsWith(fn:trim(m.images),'http://') or fn:startsWith(fn:trim(m.images),'https://')}">
+                    <c:set var="bgSrc" value="${fn:trim(m.images)}" />
+                </c:when>
+
+                <c:when test="${fn:startsWith(fn:trim(m.images),'../')}">
+                    <c:set var="bgRel" value="${fn:substring(fn:trim(m.images),3,fn:length(fn:trim(m.images)))}" />
                     <c:set var="bgSrc" value="${pageContext.request.contextPath}/${bgRel}" />
                 </c:when>
+
+                <c:when test="${fn:startsWith(fn:trim(m.images),'/')}">
+                    <c:set var="bgSrc" value="${pageContext.request.contextPath}${fn:trim(m.images)}" />
+                </c:when>
+
                 <c:otherwise>
-                    <c:set var="bgSrc" value="" />
+                    <c:set var="bgSrc" value="${pageContext.request.contextPath}/${fn:trim(m.images)}" />
                 </c:otherwise>
             </c:choose>
+
+
 
             <c:url var="detailUrl" value="/film-detail">
                 <c:param name="id" value="${m.id}"/>
@@ -186,14 +162,29 @@
                 </c:url>
 
                 <c:choose>
-                    <c:when test="${not empty m.poster}">
-                        <c:set var="posterRel" value="${fn:replace(fn:trim(m.poster), '../', '')}" />
+                    <c:when test="${empty m.poster}">
+                        <c:set var="posterSrc" value="${pageContext.request.contextPath}/img/default-poster.jpg" />
+                    </c:when>
+
+                    <c:when test="${fn:startsWith(fn:trim(m.poster),'http://') or fn:startsWith(fn:trim(m.poster),'https://')}">
+                        <c:set var="posterSrc" value="${fn:trim(m.poster)}" />
+                    </c:when>
+
+                    <c:when test="${fn:startsWith(fn:trim(m.poster),'../')}">
+                        <c:set var="posterRel" value="${fn:substring(fn:trim(m.poster),3,fn:length(fn:trim(m.poster)))}" />
                         <c:set var="posterSrc" value="${pageContext.request.contextPath}/${posterRel}" />
                     </c:when>
+
+                    <c:when test="${fn:startsWith(fn:trim(m.poster),'/')}">
+                        <c:set var="posterSrc" value="${pageContext.request.contextPath}${fn:trim(m.poster)}" />
+                    </c:when>
+
                     <c:otherwise>
-                        <c:set var="posterSrc" value="${pageContext.request.contextPath}/img/default-poster.jpg" />
+                        <c:set var="posterSrc" value="${pageContext.request.contextPath}/${fn:trim(m.poster)}" />
                     </c:otherwise>
                 </c:choose>
+
+
 
                 <div class="cards">
                     <div class="card-img">
@@ -236,43 +227,7 @@
 </div>
 
 <!-- ================== FOOTER ================== -->
-<footer class="footer">
-    <div class="footer-advise">
-        <div>
-            <ul>
-                <li><a href="#">Giới Thiệu</a></li>
-                <li><a href="#">LIÊN HỆ</a></li>
-                <li><a href="#">CHÍNH SÁCH</a></li>
-                <li><a href="#">HƯỚNG DẪN</a></li>
-            </ul>
-        </div>
-        <div class="advise-text">
-            <p><small>Địa chỉ trụ sở: 3 Đ. Cầu Giấy, Ngọc Khánh, Đống Đa, Hà Nội, Việt Nam</small></p>
-            <p><small>Giấy chứng nhận ĐKKD số: 0106633482 - Đăng ký lần đầu ngày 08/09/2014 tại Sở KH&ĐT Hà Nội</small></p>
-        </div>
-    </div>
-
-    <div>
-        <h4>Follow Us</h4>
-        <div class="footer-social">
-            <a href="https://www.instagram.com/sqw_uli"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.facebook.com/Siluq.16"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="https://www.threads.net/@sqw_uli"><i class="fa-brands fa-threads"></i></a>
-        </div>
-    </div>
-
-    <div class="moblie-app">
-        <h4>Movie App</h4>
-        <div class="link-title">
-            <a href="https://play.google.com/store/apps/details?id=com.cgv.android.movieapp" target="_blank">
-                <img src="<c:url value='/img/footer/01.jpg'/>" alt="">
-            </a>
-            <a href="https://apps.apple.com/vn/app/cgv-cinemas/id1067166194" target="_blank">
-                <img src="<c:url value='/img/footer/02.jpg'/>" alt="">
-            </a>
-        </div>
-    </div>
-</footer>
+<%@ include file="/dungchung/footer.jsp" %>
 
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>

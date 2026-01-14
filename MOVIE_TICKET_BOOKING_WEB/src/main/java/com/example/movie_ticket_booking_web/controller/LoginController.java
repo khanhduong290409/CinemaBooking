@@ -1,6 +1,8 @@
 package com.example.movie_ticket_booking_web.controller;
 
 import com.example.movie_ticket_booking_web.dao.UserDAO;
+import com.example.movie_ticket_booking_web.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -20,31 +22,29 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // tên input trong form JSP: name="User" và name="pass"
         String userOrEmail = request.getParameter("User");
         String password = request.getParameter("pass");
 
-        boolean ok = userDAO.checkLogin(userOrEmail, password);
+        User u = userDAO.login(userOrEmail, password);
 
-        if (ok) {
-            // tạo session
+        if (u != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("currentUser", userOrEmail);
+            session.setAttribute("currentUser", u); // LƯU OBJECT
 
-            // chuyển đến home (ví dụ home.jsp)
-            response.sendRedirect(request.getContextPath() + "/home");
+            if ("ADMIN".equalsIgnoreCase(u.getRole())) {
+                response.sendRedirect(request.getContextPath() + "/admin");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home");
+            }
         } else {
-            // báo lỗi lại cho login.jsp
             request.setAttribute("loginError", "Sai tài khoản hoặc mật khẩu!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 
-    // nếu ai đó truy cập GET /login → chuyển về login.jsp
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 }

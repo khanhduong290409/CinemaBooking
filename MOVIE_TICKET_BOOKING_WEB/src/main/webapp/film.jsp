@@ -22,34 +22,8 @@
 <body>
 
 <!-- ================= HEADER ================= -->
-<div class="container-header">
-    <header class="header" id="header">
-        <div class="logo">
-            <h1>movie</h1>
-        </div>
-        <nav class="navBar">
-            <div class="open-btn" id="open">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-            <div class="nav-items">
-                <ul class="list">
-                    <li><a href="<c:url value='/home'/>">Trang Chủ</a></li>
-                    <li><a href="<c:url value='/films'/>">Phim</a></li>
-                    <li><a href="<c:url value='/uudai'/>">Ưu Đãi</a></li>
-                    <li><a href="<c:url value='/contact'/>">Liên Hệ</a></li>
-                    <div class="close-btn" id="close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                </ul>
-                <ul class="user">
-                    <li>
-                        <a href="#"><i class="fa-solid fa-user" id="user_icon"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-</div>
+
+<%@ include file="/dungchung/navfix.jsp" %>
 
 <!-- ================= STATUS NAV ================= -->
 <div class="container status-container">
@@ -86,14 +60,37 @@
                 </c:url>
 
                 <!-- poster -->
+<%--                <c:choose>--%>
+<%--                    <c:when test="${not empty m.poster}">--%>
+<%--                        <c:url var="posterUrl" value="/${m.poster}"/>--%>
+<%--                    </c:when>--%>
+<%--                    <c:otherwise>--%>
+<%--                        <c:url var="posterUrl" value="/img/default-poster.png"/>--%>
+<%--                    </c:otherwise>--%>
+<%--                </c:choose>--%>
                 <c:choose>
                     <c:when test="${not empty m.poster}">
-                        <c:url var="posterUrl" value="/${m.poster}"/>
+                        <c:choose>
+                            <c:when test="${fn:startsWith(m.poster,'http://') or fn:startsWith(m.poster,'https://')}">
+                                <c:set var="posterUrl" value="${m.poster}" />
+                            </c:when>
+
+                            <c:when test="${fn:startsWith(m.poster,'../')}">
+                                <c:url var="posterUrl" value="${fn:replace(m.poster,'../','/')}" />
+                            </c:when>
+
+                            <c:otherwise>
+                                <c:url var="posterUrl" value="${m.poster}" />
+                            </c:otherwise>
+                        </c:choose>
                     </c:when>
+
                     <c:otherwise>
-                        <c:url var="posterUrl" value="/img/default-poster.png"/>
+                        <c:url var="posterUrl" value="/img/default-poster.png" />
                     </c:otherwise>
                 </c:choose>
+
+
 
                 <div class="col mb-4">
                     <div class="card card-movie">
@@ -213,22 +210,8 @@
 </div>
 
 <!-- ================= FOOTER ================= -->
-<footer class="footer">
-    <div class="footer-advise">
-        <div>
-            <ul>
-                <li><a href="#">Giới Thiệu</a></li>
-                <li><a href="#">Liên Hệ</a></li>
-                <li><a href="#">Chính Sách</a></li>
-                <li><a href="#">Hướng Dẫn</a></li>
-            </ul>
-        </div>
-        <div class="advise-text">
-            <p><small>Địa chỉ trụ sở: 3 Đ. Cầu Giấy, Hà Nội</small></p>
-            <p><small>Giấy chứng nhận ĐKKD số: 0106633482</small></p>
-        </div>
-    </div>
-</footer>
+<%@ include file="/dungchung/footer.jsp" %>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<c:url value='/js/film.js'/>"></script>

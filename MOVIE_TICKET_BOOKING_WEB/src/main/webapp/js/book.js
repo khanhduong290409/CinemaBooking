@@ -256,9 +256,8 @@ document.addEventListener("click", async (e) => {
 function renderSeats(bookedMap) {
     chairEl.innerHTML = "";
 
-    // CSS đang canh hàng ghế bằng nth-child(6) + nth-last-child(6)
-    // => ĐỪNG insert "space" li, chỉ render span + 24 ghế + span (fix lệch hàng)
-    const rows = ["J", "I", "H", "G", "F", "E", "D", "C", "B", "A"];
+    // ✅ 8 hàng theo template: J H F E D C B A
+    rows = ["J", "H", "F", "E", "D", "C", "B", "A"];
     const seatCount = 24;
 
     rows.forEach(r => {
@@ -275,7 +274,7 @@ function renderSeats(bookedMap) {
             seat.dataset.seat = r + i;
             seat.dataset.price = String(seatPriceMap[r] || 0);
 
-            // Template hiển thị giá trên ghế (vd: 56 / 80 / 43)
+            // hiển thị giá (43/56/80)
             seat.innerText = String(Math.round((seatPriceMap[r] || 0) / 1000));
 
             if (bookedMap && bookedMap[r] && bookedMap[r].includes(i)) {
@@ -293,6 +292,7 @@ function renderSeats(bookedMap) {
         chairEl.appendChild(row);
     });
 }
+
 
 function toggleSeat(li) {
     if (li.classList.contains("booked")) return;
@@ -388,17 +388,25 @@ document.getElementById("continue").onclick = async () => {
         try { data = text ? JSON.parse(text) : {}; } catch (_) {}
 
         if (!res.ok) {
+            if (res.status === 401) {
+                alert("Vui lòng đăng nhập để đặt vé!");
+                popup.style.display = "none";
+                document.body.classList.remove("modal-open");
+                window.location.href = api("/login");
+                return;
+            }
+
             if (res.status === 409) {
                 alert(data.message || "Ghế đã được đặt bởi người khác. Vui lòng chọn ghế khác!");
             } else {
                 alert(data.message || "Đặt vé thất bại!");
             }
+
             popup.style.display = "none";
             document.body.classList.remove("modal-open");
             return;
         }
 
-        // ✅ Thành công: render vé giống template
         popup.style.display = "none";
         document.body.classList.remove("modal-open");
         showTicket();
@@ -407,6 +415,7 @@ document.getElementById("continue").onclick = async () => {
         console.error("[BOOK] Booking error:", err);
         alert("Đặt vé thất bại! Vui lòng thử lại.");
     }
+
 };
 
 function showTicket() {

@@ -29,9 +29,9 @@ public class MovieDAO {
         m.setVideoUrl(rs.getString("video_url"));
         m.setStatus(rs.getString("status"));
         m.setCode(rs.getString("code"));
-
         return m;
     }
+
     public List<Movie> findTopRatedNowShowing(int limit) {
         String sql = """
 SELECT * FROM movies WHERE status='NOW_SHOWING' ORDER BY rated DESC, released DESC LIMIT ?
@@ -48,8 +48,8 @@ SELECT * FROM movies WHERE status='NOW_SHOWING' ORDER BY rated DESC, released DE
         }
         return list;
     }
+
     public List<Movie> findTopNowShowingForCarousel(int limit) {
-        // bạn có thể đổi order theo released DESC nếu muốn
         String sql = "SELECT * FROM movies WHERE status='NOW_SHOWING' ORDER BY released DESC, rated DESC LIMIT ?";
         List<Movie> list = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection();
@@ -104,8 +104,27 @@ SELECT * FROM movies WHERE status='NOW_SHOWING' ORDER BY rated DESC, released DE
     public List<Movie> findUpcoming() {
         return findByStatus("UPCOMING");
     }
+
+    // ================= ADMIN CRUD =================
+    public List<Movie> findAll() {
+        String sql = "SELECT * FROM movies ORDER BY id DESC";
+        List<Movie> list = new ArrayList<>();
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(mapRow(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public Movie findByCode(String code) {
-        String sql = "SELECT * FROM movies WHERE code = ? LIMIT 1";
+        String sql = "SELECT * FROM movies WHERE code = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -119,4 +138,103 @@ SELECT * FROM movies WHERE status='NOW_SHOWING' ORDER BY rated DESC, released DE
         return null;
     }
 
+    public boolean insert(Movie m) {
+        String sql = """
+            INSERT INTO movies(
+                title, age, rated, released, runtime, genre, director, actors,
+                description, plot, language, country,
+                poster, images, video_url, status, code
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, m.getTitle());
+            ps.setString(2, m.getAge());
+            ps.setDouble(3, m.getRated());
+            ps.setDate(4, m.getReleased());
+            ps.setString(5, m.getRuntime());
+            ps.setString(6, m.getGenre());
+            ps.setString(7, m.getDirector());
+            ps.setString(8, m.getActors());
+            ps.setString(9, m.getDescription());
+            ps.setString(10, m.getPlot());
+            ps.setString(11, m.getLanguage());
+            ps.setString(12, m.getCountry());
+            ps.setString(13, m.getPoster());
+            ps.setString(14, m.getImages());
+            ps.setString(15, m.getVideoUrl());
+            ps.setString(16, m.getStatus());
+            ps.setString(17, m.getCode());
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean update(Movie m) {
+        String sql = """
+            UPDATE movies SET
+                title=?, age=?, rated=?, released=?, runtime=?, genre=?, director=?, actors=?,
+                description=?, plot=?, language=?, country=?,
+                poster=?, images=?, video_url=?, status=?, code=?
+            WHERE id=?
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, m.getTitle());
+            ps.setString(2, m.getAge());
+            ps.setDouble(3, m.getRated());
+            ps.setDate(4, m.getReleased());
+            ps.setString(5, m.getRuntime());
+            ps.setString(6, m.getGenre());
+            ps.setString(7, m.getDirector());
+            ps.setString(8, m.getActors());
+            ps.setString(9, m.getDescription());
+            ps.setString(10, m.getPlot());
+            ps.setString(11, m.getLanguage());
+            ps.setString(12, m.getCountry());
+            ps.setString(13, m.getPoster());
+            ps.setString(14, m.getImages());
+            ps.setString(15, m.getVideoUrl());
+            ps.setString(16, m.getStatus());
+            ps.setString(17, m.getCode());
+            ps.setInt(18, m.getId());
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean delete(int id) {
+        String sql = "DELETE FROM movies WHERE id=?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public int countAll() {
+        String sql = "SELECT COUNT(*) FROM movies";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

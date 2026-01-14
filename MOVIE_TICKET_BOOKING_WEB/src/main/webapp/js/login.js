@@ -4,11 +4,20 @@ function switchForm(formType) {
     var loginButton = document.getElementById('login');
     var signupButton = document.getElementById('signup');
 
-    document.forms.log.User.value = '';
-    document.forms.log.pass.value = '';
-    document.forms.Sign.User.value = '';
-    document.forms.Sign.pass.value = '';
-    document.forms.Sign.repass.value = '';
+    // ===== RESET INPUT (an toàn, không crash nếu field không tồn tại) =====
+    if (document.forms.log) {
+        if (document.forms.log.User) document.forms.log.User.value = '';
+        if (document.forms.log.pass) document.forms.log.pass.value = '';
+    }
+
+    if (document.forms.Sign) {
+        // form Sign Up mới: username + email
+        if (document.forms.Sign.username) document.forms.Sign.username.value = '';
+        if (document.forms.Sign.email) document.forms.Sign.email.value = '';
+        if (document.forms.Sign.pass) document.forms.Sign.pass.value = '';
+        if (document.forms.Sign.repass) document.forms.Sign.repass.value = '';
+    }
+
     if (formType === 'login') {
         loginBox.classList.add('active');
         signupBox.classList.remove('active');
@@ -22,8 +31,6 @@ function switchForm(formType) {
     }
 }
 
-
-
 Array.from(document.getElementsByClassName('login_input')).forEach((i, a) => {
     i.addEventListener('focus', () => {
         document.getElementsByClassName('login_field')[a].style.borderBottom = "2px solid #e50914";
@@ -32,55 +39,54 @@ Array.from(document.getElementsByClassName('login_input')).forEach((i, a) => {
         document.getElementsByClassName('login_field')[a].style.borderBottom = "2px solid gray";
     });
 });
+
 function checknull(txt) {
-    if (txt.value.length == 0)
-        return true;
-    else
-        return false;
+    return !txt || txt.value.trim().length === 0;
 }
+
+// (Bạn đang submit thật về servlet, nên 2 hàm dưới có thể không cần nữa)
+// Mình vẫn sửa cho đúng field để khỏi lỗi nếu bạn có gọi ở đâu đó.
+
 function login(l) {
     if (checknull(l.User)) {
-        alert(l.User.name + " must be not null");
+        alert("User must be not null");
         l.User.focus();
         return;
     }
     if (checknull(l.pass)) {
-        alert(l.pass.name + " must be not null");
+        alert("pass must be not null");
         l.pass.focus();
         return;
     }
-    else {
-        alert("Login successful");
-    }
-    setTimeout(function () {
-        window.location.href = "../html/home.html"; // Thay đổi đường dẫn này thành trang bạn muốn chuyển đến
-    }, 1000);
+    alert("Login successful");
 }
+
 function signup(s) {
-    var loginBox = document.getElementById('loginBox');
-    var signupBox = document.getElementById('signupBox');
-    var loginButton = document.getElementById('login');
-    var signupButton = document.getElementById('signup');
-    if (checknull(s.User)) {
-        alert(s.User.name + " must be not null");
-        s.User.focus();
+    if (checknull(s.username)) {
+        alert("username must be not null");
+        s.username.focus();
+        return;
+    }
+    if (checknull(s.email)) {
+        alert("email must be not null");
+        s.email.focus();
         return;
     }
     if (checknull(s.pass)) {
-        alert(s.pass.name + " must be not null");
+        alert("pass must be not null");
         s.pass.focus();
         return;
     }
     if (checknull(s.repass)) {
-        alert(s.repass.name + " must be not null");
-        s.repasspass.focus();
+        alert("repass must be not null");
+        s.repass.focus();
         return;
     }
     if (s.pass.value !== s.repass.value) {
-        alert("Pass and repass are not the same")
+        alert("Pass and repass are not the same");
+        return;
     }
-    else {
-        alert("signup successful");
-        switchForm('login');
-    }
+
+    alert("signup successful");
+    switchForm('login');
 }

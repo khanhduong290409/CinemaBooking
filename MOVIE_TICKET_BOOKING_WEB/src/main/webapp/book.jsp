@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:if test="${empty sessionScope.currentUser}">
+    <c:redirect url="/login"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,22 +58,23 @@
 
         <div class="screen" id="screen">Screen</div>
 
-        <!-- chairs -->
+        <!-- chairs (NHỚ: div này PHẢI đóng đúng ở đây) -->
         <div class="chair" id="chair"></div>
 
-        <!-- Ticket (ẩn, sẽ hiện sau khi đặt vé thành công) -->
+        <!-- Ticket -->
         <div class="ticket" id="ticket"></div>
 
-        <!-- Combo -->
+        <!-- Combo popup -->
         <div class="popup_overplay" id="popup_screen">
             <div class="popup_bx">
                 <h2>Combo - Bắp nước</h2>
 
                 <div class="combo-section">
                     <div class="combo-item">
-                        <img src="<c:url value='/img/combo/combo1.png'/>">
+                        <img src="<c:url value='/img/combo/combo1.png'/>" alt="Beta Combo" class="combo-image">
                         <div class="combo-details">
                             <h3>Beta Combo 69oz - 68.000đ</h3>
+                            <p>TIẾT KIỆM 28K!!! Gồm: 1 Bắp (69oz) + 1 Nước có gaz (22oz)</p>
                             <div class="quantity-control">
                                 <button class="minus">-</button>
                                 <input type="text" value="0" class="quantity">
@@ -81,9 +84,10 @@
                     </div>
 
                     <div class="combo-item">
-                        <img src="<c:url value='/img/combo/combo2.png'/>">
+                        <img src="<c:url value='/img/combo/combo2.png'/>" alt="Sweet Combo" class="combo-image">
                         <div class="combo-details">
                             <h3>Sweet Combo 69oz - 88.000đ</h3>
+                            <p>TIẾT KIỆM 46K!!! Gồm: 1 Bắp (69oz) + 2 Nước có gaz (22oz)</p>
                             <div class="quantity-control">
                                 <button class="minus">-</button>
                                 <input type="text" value="0" class="quantity">
@@ -104,6 +108,7 @@
             </div>
         </div>
 
+        <!-- Details -->
         <div class="details" id="det">
             <div class="details_chair">
                 <li>Avalable</li>
@@ -112,11 +117,13 @@
             </div>
         </div>
 
+        <!-- Total -->
         <div class="total" id="total_ticket">
             <h6>Tạm Tính:</h6>
-            <p id="price">0đ</p>
+            <p class = "price-padding" id="price">0đ</p>
         </div>
 
+        <!-- Buttons -->
         <button class="book_tic" id="book_ticket">
             <i class="bi bi-arrow-right-short"></i>
         </button>
@@ -126,6 +133,7 @@
         </button>
 
     </div>
+
 </div>
 
 <script src="<c:url value='/js/book.js'/>"></script>

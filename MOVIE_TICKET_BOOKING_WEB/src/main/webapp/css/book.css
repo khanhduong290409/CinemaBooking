@@ -439,6 +439,7 @@ body {
     display: none;
 }
 
+
 .book .right .ticket {
     width: 100%;
     height: 75%;
@@ -1214,4 +1215,22 @@ body.modal-open {
     background: var(--bg-image) no-repeat center -30px / cover;
     opacity: 0.25;
     z-index: -1;
+}
+
+/* Force total price to be on a new line */
+#total_ticket{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+}
+
+#total_ticket h6,
+#total_ticket p{
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+#price{
+    display: block !important;
 }

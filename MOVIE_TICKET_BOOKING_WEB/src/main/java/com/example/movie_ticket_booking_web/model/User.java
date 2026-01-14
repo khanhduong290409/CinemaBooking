@@ -10,6 +10,7 @@ public class User {
     private int id;
     private String username;
     private String email;
-    private String password; // đang để plain text cho đơn giản (thực tế nên hash)
+    private String password;
+    private String role;
 
 }

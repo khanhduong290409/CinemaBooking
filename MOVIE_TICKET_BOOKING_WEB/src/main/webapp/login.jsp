@@ -1,12 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 12/2/2025
-  Time: 4:00 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -22,50 +17,8 @@
     <link rel="stylesheet" href="dungchung/footer.css">
     <title>Login</title></head>
 <body>
-<div class="container">
-    <header class="header" id="header">
-        <div class="logo">
-            <h1>movie</h1>
-        </div>
-        <nav class="navBar">
-            <div class="open-btn" id="open">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-            <div class="nav-items">
-                <ul class="list">
-                    <li><a href="<c:url value='/home'/>">Trang Chủ</a></li>
-                    <li><a href="<c:url value='/films'/>">Phim</a>
-                    </li>
-                    <li><a href="<c:url value ='/uudai'/>">Ưu Đãi</a></li>
-                    <li><a href="<c:url value = '/contact'/>">Liên Hệ</a></li>
-                    <div class="close-btn" id="close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                </ul>
-                <ul class="user">
-                    <li>
-                        <div class="search_user">
-<%--                            <input type="text" placeholder="Search..." id="search_input">--%>
-<%--                            <div class="search">--%>
-<%--                                <!-- <a href="#" class="card1">--%>
-<%--                                    <img src="img/the boys.jpg" alt="">--%>
-<%--                                    <div class="cont">--%>
-<%--                                        <h3 class=titl>The Boys </h3>--%>
-<%--                                        <p>Action, 2021 , <span>IMDB</span><i class="fa-solid fa-star"></i> 9.6</p>--%>
-<%--                                    </div>--%>
-<%--                                </a> -->--%>
+<%@ include file="/dungchung/nav.jsp" %>
 
-<%--                            </div>--%>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="<c:url value = '/login'/>"><i class="fa-solid fa-user" id="user_icon"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-</div>
 
 <div class="main">
     <div class="form">
@@ -112,10 +65,17 @@
             <div class="signup">
                 <form action="register" method = "post" name="Sign">
                     <h3>Sign Up</h3>
+
+                    <div class="login_field">
+                        <i class="bi bi-person-fill"></i>
+                        <input type="text" name="username" class="login_input" placeholder="User name">
+                    </div>
+
                     <div class="login_field">
                         <i class="bi bi-envelope-fill"></i>
-                        <input type="text" name="User" class="login_input" placeholder="User name / Email">
+                        <input type="email" name="email" class="login_input" placeholder="Email">
                     </div>
+
                     <div class="login_field">
                         <i class="bi bi-shield-lock-fill"></i>
                         <input type="password" name="pass" class="login_input" placeholder="Password">
@@ -141,46 +101,8 @@
     </div>
 </div>
 
-<footer class="footer">
-    <div class="footer-advise">
-        <div>
-            <ul>
-                <li><a href="../html/contact.html#gioithieu">Giới Thiệu</a></li>
-                <li><a href="../html/contact.html#lienhe">LIÊN HỆ</a></li>
-                <li><a href="../html/contact.html#chinhsach">CHÍNH SÁCH</a></li>
-                <li><a href="../html/contact.html#huongdan">HƯỚNG DẪN</a></li>
-            </ul>
-        </div>
-        <div class="advise-text">
-            <p>
-                <small>Địa chỉ trụ sở: 3 Đ. Cầu Giấy, Ngọc Khánh, Đống Đa, Hà Nội, Việt Nam
-                </small>
-            </p>
-            <p>
-                <small>
-                    Giấy chứng nhận ĐKKD số: 0106633482 - Đăng ký lần đầu ngày 08/09/2014 tại Sở Kế hoạch và Đầu tư Thành phố Hà Nội
-                </small>
-            </p>
-        </div>
-    </div>
-    <div>
-        <h4>Follow Us</h4>
-        <div class="footer-social">
-            <a href="https://www.instagram.com/sqw_uli"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.facebook.com/Siluq.16"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="https://www.threads.net/@sqw_uli"><i class="fa-brands fa-threads"></i></a>
-        </div>
-    </div>
-    <div class="moblie-app">
-        <h4>Movie App</h4>
-        <div class="link-title">
-            <a href="https://play.google.com/store/apps/details?id=com.cgv.android.movieapp"
-               target="_blank"><img src="../img/footer/01.jpg" alt=""></a>
-            <a href="https://apps.apple.com/vn/app/cgv-cinemas/id1067166194"
-               target="_blank"><img src="../img/footer/02.jpg" alt=""></a>
-        </div>
-    </div>
-</footer>
+<%@ include file="/dungchung/footer.jsp" %>
+
 
 <script src="dungchung/nav.js"></script>
 <script src="js/login.js"></script>

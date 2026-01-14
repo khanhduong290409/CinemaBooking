@@ -1,6 +1,5 @@
 package com.example.movie_ticket_booking_web.dao;
 
-
 import com.example.movie_ticket_booking_web.db.DBConnection;
 import com.example.movie_ticket_booking_web.model.Showtime;
 
@@ -9,6 +8,29 @@ import java.sql.Date;
 import java.util.*;
 
 public class ShowtimeDAO {
+
+    public Showtime findById(int id) {
+        String sql = "SELECT * FROM showtimes WHERE id = ?";
+        try (Connection c = DBConnection.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Showtime s = new Showtime();
+                s.setId(rs.getInt("id"));
+                s.setMovieId(rs.getInt("movie_id"));
+                s.setShowDate(rs.getDate("show_date"));
+                s.setShowTime(rs.getTime("show_time"));
+                s.setFormat(rs.getString("format"));
+                s.setPrice(rs.getInt("price"));
+                return s;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public List<Showtime> getShowtimesByMovieAndDate(String movieCode, Date date) {
         List<Showtime> list = new ArrayList<>();
